@@ -4,6 +4,7 @@ const { users } = require('./model/index')
 //function call and it returns an object in app
 const app=express()
 require("./model/index")
+const bcrypt= require("bcrypt")
 
 //ejs as view engine after installing
 app.set("view engine","ejs")  
@@ -34,7 +35,7 @@ app.post("/register",async(req,res)=>{
   await users.create({
     email:email,   //if key value same then write only email,  password,
     username:username,
-    password:password
+    password: bcrypt.hashSync(password,10) 
    })
    res.send('successful register')
 })
