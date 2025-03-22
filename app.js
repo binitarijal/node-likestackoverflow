@@ -5,6 +5,7 @@ const { users } = require('./model/index')//
 const app=express()
 require("./model/index")
 const bcrypt= require("bcrypt") // for password hashing
+const jwt=require("jsonwebtoken") //for token generation
 
 //ejs as view engine after installing
 app.set("view engine","ejs")  
@@ -68,6 +69,11 @@ if(data){
    // checking pw with hashed pw
    isMatched=bcrypt.compareSync(password,data.password)
    if(isMatched){
+   const token= jwt.sign({id:data.id},"kchahauhency",{
+        expiresIn:'1h'
+    })
+    console.log(token)
+    res.cookie("jwttoken",token)
        return res.send("login success")
    }
    else{
