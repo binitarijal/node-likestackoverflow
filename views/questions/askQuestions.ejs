@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ask questions</title>
+   <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+   <%-include("../components/navbar.ejs")%>   <!-- made resuable component and included it in all necessary place-->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="form-container">
+            <h2 class="form-title">Ask me</h2>
+            <form action="/askQuestions" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="username" class="form-label">title</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="title"
+                        class="form-input"
+                        placeholder="Enter your questions"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">description</label>
+                    <input
+                        type="text"
+                        id="email"
+                        name="description"
+                        class="form-input"
+                        placeholder="description"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">image</label>
+                    <input
+                        type="file"
+                        id="password"
+                        name="image"
+                        class="form-input"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="submit-button">Ask questions</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbarMenu = document.getElementById('navbarMenu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
