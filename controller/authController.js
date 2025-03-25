@@ -1,9 +1,17 @@
 const bcrypt= require("bcrypt") // for password hashing
 const jwt=require("jsonwebtoken") //for token generation
-const { users } = require("../model")
+const { users, questions } = require("../model")
 
-exports.renderHomePage=(req,res)=>{
-    res.render('home')
+exports.renderHomePage=async(req,res)=>{
+    const data= await questions.findAll({
+        include:[
+            {
+                model:users , // joining two tables 
+                attributes:["username"] // to get only username
+            }
+        ]
+    }) // returns array of all questions 
+    res.render('home',{data})
 }
 exports.renderAboutPage=(req,res)=>{
     const name="Binita"
@@ -34,7 +42,7 @@ exports.registersUser=async(req,res)=>{
     username:username,
     password: bcrypt.hashSync(password,10) 
    })
-   res.send('successful register')
+   res.redirect("/login")
 }
 
 exports.userLogin=async(req,res)=>{
@@ -58,7 +66,7 @@ if(data){
      })
      console.log(token)
      res.cookie("jwttoken",token)
-        return res.send("login success")
+        return res.redirect("/")
     }
     else{
           return res.send("Invalid password")

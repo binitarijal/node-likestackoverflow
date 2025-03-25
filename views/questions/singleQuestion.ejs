@@ -169,17 +169,36 @@
 
     <!-- Navigation Bar -->
  
-    <%-include("./components/navbar.ejs")%>   <!-- made resuable component and included it in all necessary place-->
+    <%-include("../components/navbar.ejs")%>   <!-- made resuable component and included it in all necessary place-->
 
     <!-- Question Cards -->
     <div class="card-container">
-  <%  data.forEach((item)=>{ %>
-        <div class="card" onclick="window.location.href='/question/<%-item.id %>'">
-            <h1 class="question"><%-item.title %></h1>
-           
-            <p class="author">Author : <%- item.user.username  %></p>
+ 
+        <div class="card" >
+            <h1 class="question"><%- data[0].title %></h1>
+            <p class="question"><%-data[0].description %></p>
+            <img width="400px" height="400px" src="http://localhost:3000/<%- data[0].image %>" alt="failed load">
+            <br> <i class="author">Author : <%-data[0].user.username %></i>
+            <p>posted on: <%-new Date(data[0].createdAt).toLocaleDateString()%></p>
         </div>
-   <% }) %>
+        <div class="answer">
+            <div class="card" >
+                <% questionanswers.forEach((answer)=>{ %>
+                <p ><%-answer.answerText %></p>
+                <br> <i >Author : <%-answer.user.username %></i>
+                <p>posted on: <%-new Date(answer.createdAt).toLocaleDateString()%></p>
+            </div>
+            <%}) %>
+        </div>
+        <div class="card">
+            <h3>Answer</h3>
+            <form action="/answer/<%- data[0].id %>" method="post">
+            <textarea name="answer"  rows="5" cols="80" id=""></textarea>
+            <br>
+            <button>submit</button>
+        </form>
+        </div>
+ 
 </div> 
    
 

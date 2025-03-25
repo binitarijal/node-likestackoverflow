@@ -31,17 +31,17 @@ db.sequelize=sequelize
 //importing model files
 db.users=require("./userModel.js")(sequelize , DataTypes);
 db.questions=require("./questionModel.js")(sequelize , DataTypes);
-db.answer=require("./answerModel.js")(sequelize , DataTypes);
+db.answers=require("./answerModel.js")(sequelize , DataTypes);
 //to create relations between tables question and user
 db.users.hasMany(db.questions);
 db.questions.belongsTo(db.users);
 
 
 //to create relations between tables question and answer
-db.questions.hasMany(db.answer);
-db.answer.belongsTo(db.questions);
-db.users.hasMany(db.answer);
-db.answer.belongsTo(db.users);
+db.questions.hasMany(db.answers);
+db.answers.belongsTo(db.questions);
+db.users.hasMany(db.answers);
+db.answers.belongsTo(db.users);
 
 
 //migrating code

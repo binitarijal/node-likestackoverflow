@@ -1,4 +1,4 @@
-const { questions } = require("../model")
+const { questions, users, answers } = require("../model")
 exports.renderAskQuestionPage=(req,res)=>{
     res.render("questions/askQuestions")
 }
@@ -28,4 +28,29 @@ exports.getAllQuestions=async(req,res)=>{
             }
         ]
     })
+}
+
+exports.renderSingleQuestionPage=async(req,res)=>{
+    const {id}=req.params
+     const data= await questions.findAll({
+        where:{
+            id:id
+        },
+           include:[{
+                   model:users , // joining two tables 
+                   attributes:["username"] // to get only username
+               }
+           ]
+       }) // returns array of all questions 
+    
+    const questionanswers= await answers.findAll({
+        where:{
+            questionId:id
+        },
+        include:[{
+            model:users,
+            attributes:['username']
+        }]
+    })
+       res.render("questions/singleQuestion",{data,questionanswers})
 }
