@@ -1,5 +1,6 @@
 const bcrypt= require("bcrypt") // for password hashing
 const jwt=require("jsonwebtoken") //for token generation
+const { users } = require("../model")
 
 exports.renderHomePage=(req,res)=>{
     res.render('home')
@@ -53,7 +54,7 @@ if(data){
     isMatched=bcrypt.compareSync(password,data.password)
     if(isMatched){
     const token= jwt.sign({id:data.id},"kchahauhency",{
-         expiresIn:'1h'
+         expiresIn:'1d'
      })
      console.log(token)
      res.cookie("jwttoken",token)

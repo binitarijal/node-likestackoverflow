@@ -1,6 +1,7 @@
 //require garney after install
 const express=require('express')//express is a function
 const { users } = require('./model/index')//
+const cookieParser=require('cookie-parser') //for cookies
 //function call and it returns an object in app
 const app=express()
 require("./model/index")
@@ -17,6 +18,8 @@ app.set("view engine","ejs")
 //nodejs form bata kei data aaudai cha tyo kura bujh natra by default bujhdaina
 app.use(express.urlencoded({extended:true}))//ssr 
 app.use(express.json())  //backen bahek aru kei form bata audai cha vaney yo hanney eg react
+app.use(cookieParser()) //for node js to understand cookies
+
 const authRoute=require('./routes/authRoute')
 const questionRoute=require('./routes/questionRoute')
 app.get('/',renderHomePage)
