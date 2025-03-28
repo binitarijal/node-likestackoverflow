@@ -182,9 +182,9 @@
             <p>posted on: <%-new Date(data[0].createdAt).toLocaleDateString()%></p>
         </div>
         <div class="answer">
+            <% answers.forEach((answer)=>{ %>
             <div class="card" >
-                <% questionanswers.forEach((answer)=>{ %>
-                <p ><%-answer.answerText %></p>
+                <p ><%-answer.answertext %></p>
                 <br> <i >Author : <%-answer.user.username %></i>
                 <p>posted on: <%-new Date(answer.createdAt).toLocaleDateString()%></p>
             </div>
@@ -193,7 +193,7 @@
         <div class="card">
             <h3>Answer</h3>
             <form action="/answer/<%- data[0].id %>" method="post">
-            <textarea name="answer"  rows="5" cols="80" id=""></textarea>
+            <textarea name="answer"  rows="5" cols="80" ></textarea>
             <br>
             <button>submit</button>
         </form>

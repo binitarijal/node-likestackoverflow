@@ -52,5 +52,6 @@ exports.renderSingleQuestionPage=async(req,res)=>{
             attributes:['username']
         }]
     })
-       res.render("questions/singleQuestion",{data,questionanswers})
+   // console.log(data,questionanswers)
+       res.render("./questions/singleQuestion",{data,answers:questionanswers})
 }

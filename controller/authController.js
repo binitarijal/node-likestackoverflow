@@ -1,6 +1,7 @@
 const bcrypt= require("bcrypt") // for password hashing
 const jwt=require("jsonwebtoken") //for token generation
 const { users, questions } = require("../model")
+const sendEmail = require("../utils/sendEmail")
 
 exports.renderHomePage=async(req,res)=>{
     const data= await questions.findAll({
@@ -75,4 +76,20 @@ if(data){
  else{
      return res.send("Invalid email no user with that email")
  }
+}
+
+exports.renderForgotPasswordPage=(req,res)=>{
+    res.render("./auth/forgotPassword")
+}
+
+exports.handleForgotPassword=async(req,res)=>{
+    const {email}=req.body
+    const otp=Math.floor(Math.random()*1000,9999)
+
+    //send that otp to above incoming email
+    sendEmail({
+        email:email,
+        subject: "your reset password Otp",
+        text:`your otp is ${otp}`
+    })
 }

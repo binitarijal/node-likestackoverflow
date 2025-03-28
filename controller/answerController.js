@@ -4,10 +4,11 @@ exports.handleAnswer=async(req,res)=>{
     const {answer}=req.body
     const{id:questionId}=req.params
     const userId=req.userId
-    answers.create({
-        answerText:answer,
+    console.log(answer,questionId,userId)
+   await answers.create({
+        answertext:answer,
         userId,
         questionId,
     })
-    res.redirect(`/questions/${questionId}`)
+    res.redirect(`/question/${questionId}`)
 }

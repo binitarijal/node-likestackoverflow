@@ -45,7 +45,7 @@ app.get('/',renderHomePage)
 app.get('/about',renderAboutPage)
 app.use("/",authRoute)   //from routes
 app.use("/",questionRoute)
-app.use("/",answerRoute)
+app.use("/answer",answerRoute)
 
 //after this only register ejs can use register css , its done for security reasons
 app.use(express.static('public/css/')) //for giving access to css files
